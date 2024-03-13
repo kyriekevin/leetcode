@@ -19,11 +19,24 @@
 class FindElements:
 
     def __init__(self, root: Optional[TreeNode]):
-
+        self.root = root
+        self.root.val = 0
+        self.set = set()
+        self.set.add(0)
+        self.recover(self.root)
 
     def find(self, target: int) -> bool:
-
-
+        return target in self.set
+    
+    def recover(self, root):
+        if root.left:
+            root.left.val = 2 * root.val + 1
+            self.set.add(root.left.val)
+            self.recover(root.left)
+        if root.right:
+            root.right.val = 2 * root.val + 2
+            self.set.add(root.right.val)
+            self.recover(root.right)
 
 # Your FindElements object will be instantiated and called as such:
 # obj = FindElements(root)
